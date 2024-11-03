@@ -237,7 +237,7 @@ header img{
             var fromRate = conversionRates[unitFrom.split('|')[2]];
             var toRate = conversionRates[unitTo.split('|')[2]];
             var result = (parseFloat(amount) * fromRate) / toRate;
-            document.getElementById(resultElementId).innerHTML = result.toFixed(decimals) + " " + unitTo.split('|')[2];
+            document.getElementById(resultElementId).innerHTML = result + " " + unitTo.split('|')[2];
             return result;
         }
 
