@@ -9,8 +9,8 @@
 }
 .div_style{
     background-color: bisque;
-    width: 240px;
-    height: 350px;
+    width: 440px;
+    height: 300px;
     border: 1px dotted rgb(51, 50, 50);
     padding: 2px;
     margin: 1.2%;
@@ -23,13 +23,14 @@
 .input_conv{
     margin: 5px;
     height:25px;
-    width: 220px;
+    display: inline-block;
+    width: 265px;
     border-radius: 3px;
 }
 .select_conv{
     margin: 5px;
     height:25px;
-    width: 226px;
+    width: 187px;
     border-radius: 3px;
 }
 .button.conv{
@@ -42,7 +43,7 @@
 .div2{
     background-color: whitesmoke;
     border-radius: 3px;
-    margin-top: 0px;
+    margin-top: 15px;
 }
 header img{
     width: 100%;
@@ -52,9 +53,9 @@ header img{
     </style>
 </head>
 <body style="background-color: blanchedalmond;margin: 0px; padding: 0px;">
-    <header style="text-align: center;;height: 50px;"><img src="3.3.png"/></header>
-    <div style="margin-left: 20%;margin-top: 10px;width: 60%; background-color: wheat;position: absolute;">
-<div class="div_style">
+    <header style="text-align: center;height: 50px;"><img src="3.3.png"/></header>
+    <div style="margin-left: 15%;margin-top: 10px;width: 70%; background-color: wheat;position:absolute;">
+        <div class="div_style">
     <h2>Chuyển đổi thể tích</h2>
     <form id="conv_volume" onsubmit="execute_volume(true); return false;">
         <label style="font-weight: bold;" for="from_volume">Tôi muốn chuyển đổi:</label>
@@ -99,16 +100,46 @@ header img{
         </div>
     </form>
     <script type="text/javascript">
-        function execute_volume(clicked) {
-            if (document.forms && document.forms['conv_volume']) {
-                var decimals = getCookie1('default_decimals');
-                if (decimals == null) decimals = 2;
-                convert1(document.forms['conv_volume'].amount.value, document.forms['conv_volume'].unit_from.value,
-                 document.forms['conv_volume'].unit_to.value, 'div_volume', true, decimals);
-            } else {
-                if (clicked) alert('Converter error. Conversion not supported by browser.');
+        async function execute_volume(clicked) {
+        if (document.forms && document.forms['conv_volume']) {
+            const amount = document.forms['conv_volume'].amount.value;
+            const unit_from = document.forms['conv_volume'].unit_from.value;
+            const unit_to = document.forms['conv_volume'].unit_to.value;
+
+            const conversionRequest = `<ConversionRequest>
+                                            <amount>${parseFloat(amount)}</amount>
+                                            <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                            <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                        </ConversionRequest>`;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/convert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/xml'
+                    },
+                    body: conversionRequest
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "application/xml");
+                const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                document.getElementById('div_volume').innerText = `${result} ${unit}`;
+
+            } catch (error) {
+                console.error('Error:', error);
             }
+        } else {
+            if (clicked) alert('Converter error. Conversion not supported by browser.');
         }
+    }
+
         function swapUnits1() {
             var fromSelect = document.getElementById('from_volume');
             var toSelect = document.getElementById('to_volume');
@@ -119,27 +150,6 @@ header img{
         dRf(function(){
             execute_volume(false);
         });
-        function convert1(amount, unitFrom, unitTo, resultElementId, clicked, decimals) {
-            var conversionRates = {
-                "km³": 1.0e12,
-                "m³": 1.0e3,
-                "hl": 1.0e2,
-                "decaliter": 10,
-                "dm³": 1.0,
-                "l": 1.0,
-                "dl": 0.1,
-                "cl": 0.01,
-                "cm³": 0.001,
-                "ml": 0.001,
-                "mm³": 1.0e-6,
-                "µl": 1.0e-6
-            };
-            var fromRate = conversionRates[unitFrom.split('||')[1]];
-            var toRate = conversionRates[unitTo.split('||')[1]];
-            var result = (parseFloat(amount) * fromRate) / toRate;
-            document.getElementById(resultElementId).innerHTML = result + " " + unitTo.split('||')[1];
-            return result;
-        }
         function getCookie1(cname) {
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
@@ -201,11 +211,41 @@ header img{
         </div>
     </form>
     <script type="text/javascript">
-        function execute_length(clicked) {
+       async function execute_length(clicked) {
             if (document.forms && document.forms['conv_length']) {
-                var decimals = getCookie2('default_decimals');
-                if (decimals == null) decimals = 2;
-                convert2(document.forms['conv_length'].amount.value, document.forms['conv_length'].unit_from.value, document.forms['conv_length'].unit_to.value, 'div_length', true, decimals);
+                const amount = document.forms['conv_length'].amount.value;
+                const unit_from = document.forms['conv_length'].unit_from.value;
+                const unit_to = document.forms['conv_length'].unit_to.value;
+
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                                <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convert', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('div_length').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             } else {
                 if (clicked) alert('Converter error. Conversion not supported by browser.');
             }
@@ -219,27 +259,9 @@ header img{
             toSelect.value = temp;
         }
 
-        dRf(function(){
+        dRf2(function(){
             execute_length(false);
         });
-
-        function convert2(amount, unitFrom, unitTo, resultElementId, clicked, decimals) {
-            var conversionRates = {
-                "km": 1.0e3,
-                "m": 1.0,
-                "dm": 0.1,
-                "cm": 0.01,
-                "mm": 0.001,
-                "µm": 1.0e-6,
-                "nm": 1.0e-9,
-                "Å": 1.0e-10
-            };
-            var fromRate = conversionRates[unitFrom.split('|')[2]];
-            var toRate = conversionRates[unitTo.split('|')[2]];
-            var result = (parseFloat(amount) * fromRate) / toRate;
-            document.getElementById(resultElementId).innerHTML = result + " " + unitTo.split('|')[2];
-            return result;
-        }
 
         function getCookie2(cname) {
             var name = cname + "=";
@@ -257,7 +279,7 @@ header img{
             return "";
         }
 
-        function dRf(callback) {
+        function dRf2(callback) {
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 callback();
             } else {
@@ -310,16 +332,45 @@ header img{
         </div>
     </form>
     <script type="text/javascript">
-        function execute_weight(clicked) {
+        async function execute_weight(clicked) {
             if (document.forms && document.forms['conv_weight']) {
-                var decimals = getCookie3('default_decimals');
-                if (decimals == null) decimals = 2;
-                convert3(document.forms['conv_weight'].amount.value, document.forms['conv_weight'].unit_from.value, document.forms['conv_weight'].unit_to.value, 'div_weight', true, decimals);
+                const amount = document.forms['conv_weight'].amount.value;
+                const unit_from = document.forms['conv_weight'].unit_from.value;
+                const unit_to = document.forms['conv_weight'].unit_to.value;
+
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                                <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convertWeight', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('div_weight').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             } else {
                 if (clicked) alert('Converter error. Conversion not supported by browser.');
             }
         }
-
         function swapUnits3() {
             var fromSelect = document.getElementById('from_weight');
             var toSelect = document.getElementById('to_weight');
@@ -328,31 +379,9 @@ header img{
             toSelect.value = temp;
         }
 
-        dRf(function(){
+        dRf3(function(){
             execute_weight(false);
         });
-        function convert3(amount, unitFrom, unitTo, resultElementId, clicked, decimals) {
-            var conversionRates = {
-                "t": 1.0e3,
-                "kN": 0.009806652,
-                "kg": 1.0,
-                "hg": 10.0,
-                "dag": 100.0,
-                "g": 1000.0,
-                "karat:1": 5000.0,
-                "centigram": 100000.0,
-                "mg": 1000000.0,
-                "µg": 1000000000.0,
-                "ng": 1000000000000.0,
-                "u": 6.022045e26
-            };
-
-            var fromRate = conversionRates[unitFrom.split('|')[2]];
-            var toRate = conversionRates[unitTo.split('|')[2]];
-            var result = (parseFloat(amount) * fromRate) / toRate;
-            document.getElementById(resultElementId).innerHTML = result + " " + unitTo.split('|')[2];
-            return result;
-        }
 
         function getCookie3(cname) {
             var name = cname + "=";
@@ -370,7 +399,7 @@ header img{
             return "";
         }
 
-        function dRf(callback1) {
+        function dRf3(callback1) {
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 callback1();
             } else {
@@ -405,19 +434,46 @@ header img{
         </div>
     </form>
     <script type="text/javascript">
-        function execute_temperature_ext(clicked) {
+        async function execute_temperature_ext(clicked) {
             if (document.forms && document.forms['conv_temperature_ext']) {
-                var amount = parseFloat(document.forms['conv_temperature_ext'].amount.value);
-                var fromUnit = document.forms['conv_temperature_ext'].unit_from.value;
-                var toUnit = document.forms['conv_temperature_ext'].unit_to.value;
-                var decimals = 2;
+                const amount = document.forms['conv_temperature_ext'].amount.value;
+                const fromUnit = document.forms['conv_temperature_ext'].unit_from.value;
+                const toUnit = document.forms['conv_temperature_ext'].unit_to.value;
 
-                var result = convertTemperature(amount, fromUnit, toUnit, decimals);
-                document.getElementById('result').innerHTML = result + " " + toUnit;
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${fromUnit}</fromUnit>
+                                                <toUnit>${toUnit}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convertTemperature', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('result').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
             } else {
                 if (clicked) alert('Converter error. Conversion not supported by browser.');
             }
         }
+
 
         function swapUnits4() {
             var fromSelect = document.getElementById('from_temperature');
@@ -426,44 +482,7 @@ header img{
             fromSelect.value = toSelect.value;
             toSelect.value = temp;
         }
-
-        function convertTemperature(amount, fromUnit, toUnit, decimals) {
-            var result;
-            switch (fromUnit) {
-                case "C": // Celsius to other units
-                    if (toUnit === "K") result = amount + 273.15;
-                    else if (toUnit === "F") result = amount * 9/5 + 32;
-                    else if (toUnit === "R") result = amount * 4/5;
-                    else if (toUnit === "rankine") result = (amount + 273.15) * 9/5;
-                    break;
-                case "K": // Kelvin to other units
-                    if (toUnit === "C") result = amount - 273.15;
-                    else if (toUnit === "F") result = (amount - 273.15) * 9/5 + 32;
-                    else if (toUnit === "R") result = (amount - 273.15) * 4/5;
-                    else if (toUnit === "rankine") result = amount * 9/5;
-                    break;
-                case "F": // Fahrenheit to other units
-                    if (toUnit === "C") result = (amount - 32) * 5/9;
-                    else if (toUnit === "K") result = (amount - 32) * 5/9 + 273.15;
-                    else if (toUnit === "R") result = (amount - 32) * 4/9;
-                    else if (toUnit === "rankine") result = amount + 459.67;
-                    break;
-                case "R": // Reaumur to other units
-                    if (toUnit === "C") result = amount * 5/4;
-                    else if (toUnit === "K") result = amount * 5/4 + 273.15;
-                    else if (toUnit === "F") result = amount * 9/4 + 32;
-                    else if (toUnit === "rankine") result = (amount * 5/4 + 273.15) * 9/5;
-                    break;
-                case "rankine": // Rankine to other units
-                    if (toUnit === "C") result = (amount - 491.67) * 5/9;
-                    else if (toUnit === "K") result = amount * 5/9;
-                    else if (toUnit === "F") result = amount - 459.67;
-                    else if (toUnit === "R") result = (amount - 491.67) * 4/9;
-                    break;
-            }
-            return result.toFixed(decimals);
-        }
-        function getCookie(cname) {
+        function getCookie4(cname) {
             var name = cname + "=";
             var decodedCookie = decodeURIComponent(document.cookie);
             var ca = decodedCookie.split(';');
@@ -477,7 +496,7 @@ header img{
                 }
             }
             return "";}
-        function dRf(callback) {
+        function dRf4(callback) {
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
                 callback();
             } else {
@@ -485,7 +504,7 @@ header img{
             }
         }
 
-        dRf(function() {
+        dRf4(function() {
             execute_temperature_ext(false);
         });
     </script>
