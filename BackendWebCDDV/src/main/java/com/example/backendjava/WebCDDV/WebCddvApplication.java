@@ -9,5 +9,4 @@ public class WebCddvApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebCddvApplication.class, args);
 	}
-
 }

@@ -3,6 +3,7 @@ package com.example.backendjava.WebCDDV.controller;
 import com.example.backendjava.WebCDDV.service.MassService;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost")
 @RestController
 @RequestMapping("/api/conversion")
 public class MassController {
