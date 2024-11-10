@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Chuyển đổi đơn vị</title>
+    <style>
+        h2{
+    color: orange;
+}
+.div_style{
+    background-color: bisque;
+    width: 440px;
+    height: 300px;
+    border: 1px dotted rgb(51, 50, 50);
+    padding: 2px;
+    margin: 1.2%;
+    display: inline-block;
+}
+.form-control{
+    width: 220px;
+    margin: 2px;
+}
+.input_conv{
+    margin: 5px;
+    height:25px;
+    display: inline-block;
+    width: 265px;
+    border-radius: 3px;
+}
+.select_conv{
+    margin: 5px;
+    height:25px;
+    width: 187px;
+    border-radius: 3px;
+}
+.button.conv{
+    display: inline;
+}
+.result{
+    display: inline;
+    float: right;
+}
+.div2{
+    background-color: whitesmoke;
+    border-radius: 3px;
+    margin-top: 15px;
+}
+header img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+    </style>
+</head>
+<body style="background-color: blanchedalmond;margin: 0px; padding: 0px;">
+    <header style="text-align: center;height: 50px;"><img src="3.3.png"/></header>
+    <div style="margin-left: 15%;margin-top: 10px;width: 70%; background-color: wheat;position:absolute;">
+        <div class="div_style">
+    <h2>Chuyển đổi thể tích</h2>
+    <form id="conv_volume" onsubmit="execute_volume(true); return false;">
+        <label style="font-weight: bold;" for="from_volume">Tôi muốn chuyển đổi:</label>
+        <input class="input_conv" type="text" name="amount" aria-label="Số lượng" value="1"
+        onchange="execute_volume(true);" onkeyup="execute_volume(true);" />
+        <select class="select_conv" name="unit_from" id="from_volume"  onchange="execute_volume(true);" style="margin-top:10px">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="1.000000e-12||km³">Kilômét khối</option>
+            <option value="0.001000000||m³">Mét khối</option>
+            <option value="0.01000000||hl">Hectolít</option>
+            <option value="0.1||decaliter">Decalít</option>
+            <option value="1.0||dm³">Decimet khối</option>
+            <option value="1||l" selected="selected">Lít (l)</option>
+            <option value="10||dl">Decilít</option>
+            <option value="100||cl">Centilít</option>
+            <option value="1000||cm³">Xăng-ti-mét khối</option>
+            <option value="1000||ml">Millilít</option>
+            <option value="1000000||mm³">Milimet khối</option>
+            <option value="1000000||µl">Microlít</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <label style="font-weight: bold;" for="to_volume" style="margin-top:5px">Đến:</label>
+        <select name="unit_to" id="to_volume" class="select_conv" onchange="execute_volume(true);">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="1.000000e-12||km³">Kilômét khối</option>
+            <option value="0.001000000||m³">Mét khối</option>
+            <option value="0.01000000||hl">Hectolít</option>
+            <option value="0.1||decaliter">Decalít</option>
+            <option value="1.0||dm³">Decimet khối</option>
+            <option value="1||l">Lít (l)</option>
+            <option value="10||dl">Decilít</option>
+            <option value="100||cl">Centilít</option>
+            <option value="1000||cm³">Xăng-ti-mét khối</option>
+            <option value="1000||ml">Millilít</option>
+            <option value="1000000||mm³">Milimet khối</option>
+            <option value="1000000||µl">Microlít</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <div class="div2">
+            <button class="button_conv" type="button" onclick="swapUnits1(); execute_volume(true);">Đổi đơn vị</button>
+            <div class="result" id="div_volume">-</div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        async function execute_volume(clicked) {
+        if (document.forms && document.forms['conv_volume']) {
+            const amount = document.forms['conv_volume'].amount.value;
+            const unit_from = document.forms['conv_volume'].unit_from.value;
+            const unit_to = document.forms['conv_volume'].unit_to.value;
+
+            const conversionRequest = `<ConversionRequest>
+                                            <amount>${parseFloat(amount)}</amount>
+                                            <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                            <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                        </ConversionRequest>`;
+
+            try {
+                const response = await fetch('http://localhost:8080/api/convert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/xml'
+                    },
+                    body: conversionRequest
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "application/xml");
+                const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                document.getElementById('div_volume').innerText = `${result} ${unit}`;
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        } else {
+            if (clicked) alert('Converter error. Conversion not supported by browser.');
+        }
+    }
+
+        function swapUnits1() {
+            var fromSelect = document.getElementById('from_volume');
+            var toSelect = document.getElementById('to_volume');
+            var temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+        }
+        dRf(function(){
+            execute_volume(false);
+        });
+        function getCookie1(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function dRf(callback) {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+    </script>
+    </div>
+        <div class="div_style">
+    <h2>Chuyển đổi chiều dài</h2>
+    <form class="form" id="conv_length" onsubmit="execute_length(true); return false;">
+        <label style="font-weight: bold;" for="from_length">Tôi muốn chuyển đổi:</label>
+        <input type="text" name="amount" aria-label="Số lượng" value="1" class="input_conv" onchange="execute_length(true);" onkeyup="execute_length(true);" />
+        <select name="unit_from" id="from_length" class="select_conv" onchange="execute_length(true);" style="margin-top:10px">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="0.001|0|km" selected="selected">Kilomet (km)</option>
+            <option value="1|0|m">Mét (m)</option>
+            <option value="10|0|dm">Decimet (dm) (dm)</option>
+            <option value="100|0|cm">Centimet (cm) (cm)</option>
+            <option value="1000|0|mm">Milimét (mm)</option>
+            <option value="1e6|0|µm">Micrômét (µm)</option>
+            <option value="1e9|0|nm">Nanomét (nm)</option>
+            <option value="1e10|0|Å">Angstrom (Å)</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <label style="font-weight: bold;" for="to_length" style="margin-top:5px">Đến:</label>
+        <select name="unit_to" id="to_length" class="select_conv" onchange="execute_length(true);">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="0.001|0|km">Kilomet (km)</option>
+            <option value="1|0|m">Mét (m)</option>
+            <option value="10|0|dm">Decimet (dm) (dm)</option>
+            <option value="100|0|cm">Centimet (cm) (cm)</option>
+            <option value="1000|0|mm">Milimét (mm)</option>
+            <option value="1e6|0|µm">Micrômét (µm)</option>
+            <option value="1e9|0|nm">Nanomét (nm)</option>
+            <option value="1e10|0|Å">Angstrom (Å)</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <div class="div2">
+            <button class="button_conv" type="button" onclick="swapUnits2(); execute_length(true);">Đổi đơn vị</button>
+            <div class="result" id="div_length">-</div>
+        </div>
+    </form>
+    <script type="text/javascript">
+       async function execute_length(clicked) {
+            if (document.forms && document.forms['conv_length']) {
+                const amount = document.forms['conv_length'].amount.value;
+                const unit_from = document.forms['conv_length'].unit_from.value;
+                const unit_to = document.forms['conv_length'].unit_to.value;
+
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                                <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convert', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('div_length').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            } else {
+                if (clicked) alert('Converter error. Conversion not supported by browser.');
+            }
+        }
+
+        function swapUnits2() {
+            var fromSelect = document.getElementById('from_length');
+            var toSelect = document.getElementById('to_length');
+            var temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+        }
+
+        dRf2(function(){
+            execute_length(false);
+        });
+
+        function getCookie2(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function dRf2(callback) {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+    </script>
+    </div>
+    <div class="div_style">
+    <h2> Chuyển đổi khối lượng</h2>
+    <form id="conv_weight" action="/vi/" onsubmit="execute_weight(true); return false;">
+        <label style="font-weight: bold;" for="from_weight">Tôi muốn chuyển đổi:</label>
+        <input type="text" name="amount" aria-label="Số lượng" value="1" class="input_conv" onchange="execute_weight(true);" onkeyup="execute_weight(true);" />
+        <select name="unit_from" id="from_weight" class="select_conv" onchange="execute_weight(true);" style="margin-top:10px">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="0.001|0|t">Tấn (t)</option>
+            <option value="0.009806652|0|kN">Kilonewton (kN)</option>
+            <option value="1|0|kg" selected="selected">Kilôgam (kg)</option>
+            <option value="10||hg">Hectogam (hg)</option>
+            <option value="100||dag">Decagram (dag)</option>
+            <option value="1000|0|g">Gam (g)</option>
+            <option value="5000|0|karat:1">Cara</option>
+            <option value="100000|0|centigram">Centigam</option>
+            <option value="1000000|0|mg">Miligam (mg)</option>
+            <option value="1000000000|0|µg">Microgam (µg)</option>
+            <option value="1000000000000|0|ng">Nanogam (ng)</option>
+            <option value="6.022045e26|0|u">đơn vị khối lượng nguyên tử (u)</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <label style="font-weight: bold;" for="to_weight" style="margin-top:5px">Đến:</label>
+        <select name="unit_to" id="to_weight" class="select_conv" onchange="execute_weight(true);">
+            <option disabled="disabled" class="title">Hệ mét</option>
+            <option value="0.001|0|t">Tấn (t)</option>
+            <option value="0.009806652|0|kN">Kilonewton (kN)</option>
+            <option value="1|0|kg">Kilôgam (kg)</option>
+            <option value="10||hg">Hectogam (hg)</option>
+            <option value="100||dag">Decagram (dag)</option>
+            <option value="1000|0|g">Gam (g)</option>
+            <option value="5000|0|karat:1">Cara</option>
+            <option value="100000|0|centigram">Centigam</option>
+            <option value="1000000|0|mg">Miligam (mg)</option>
+            <option value="1000000000|0|µg">Microgam (µg)</option>
+            <option value="1000000000000|0|ng">Nanogam (ng)</option>
+            <option value="6.022045e26|0|u">đơn vị khối lượng nguyên tử (u)</option>
+            <option disabled="disabled">&nbsp;</option>
+        </select>
+        <div class="div2">
+            <button class="button_conv" type="button" onclick="swapUnits3(); execute_weight(true);">Đổi đơn vị</button>
+            <div class="result" id="div_weight">-</div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        async function execute_weight(clicked) {
+            if (document.forms && document.forms['conv_weight']) {
+                const amount = document.forms['conv_weight'].amount.value;
+                const unit_from = document.forms['conv_weight'].unit_from.value;
+                const unit_to = document.forms['conv_weight'].unit_to.value;
+
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${unit_from.split('||')[1]}</fromUnit>
+                                                <toUnit>${unit_to.split('||')[1]}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convertWeight', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('div_weight').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            } else {
+                if (clicked) alert('Converter error. Conversion not supported by browser.');
+            }
+        }
+        function swapUnits3() {
+            var fromSelect = document.getElementById('from_weight');
+            var toSelect = document.getElementById('to_weight');
+            var temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+        }
+
+        dRf3(function(){
+            execute_weight(false);
+        });
+
+        function getCookie3(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function dRf3(callback1) {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                callback1();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback1);
+            }
+        }
+    </script>
+    </div>
+    <div class="div_style">
+    <h2>Chuyển đổi nhiệt độ</h2>
+    <form id="conv_temperature_ext" onsubmit="execute_temperature_ext(true); return false;">
+        <label style="font-weight: bold;" for="from_temperature">Tôi muốn chuyển đổi:</label>
+        <input type="text" value="1" name="amount" aria-label="Số lượng" class="input_conv" onchange="execute_temperature_ext(true);" onkeyup="execute_temperature_ext(true);" />
+        <select name="unit_from" id="from_temperature" class="select_conv" onchange="execute_temperature_ext(true);" style="margin-top:10px">
+            <option value="K">Kelvin (K)</option>
+            <option value="C" selected="selected">Celsius (C)</option>
+            <option value="F">Fahrenheit (F)</option>
+            <option value="R">Reaumur (R)</option>
+            <option value="rankine">Rankine</option>
+        </select>
+        <label style="font-weight: bold;" for="to_temperature" style="margin-top:5px">Đến:</label>
+        <select name="unit_to" id="to_temperature" class="select_conv" onchange="execute_temperature_ext(true);">
+            <option value="K">Kelvin (K)</option>
+            <option value="C">Celsius (C)</option>
+            <option value="F" selected="selected">Fahrenheit (F)</option>
+            <option value="R">Reaumur (R)</option>
+            <option value="rankine">Rankine</option>
+        </select>
+        <div class="div2">
+            <button class="button_conv" type="button" onclick="swapUnits4(); execute_temperature_ext(true);">Đổi đơn vị</button>
+            <div class="result" id="result">-</div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        async function execute_temperature_ext(clicked) {
+            if (document.forms && document.forms['conv_temperature_ext']) {
+                const amount = document.forms['conv_temperature_ext'].amount.value;
+                const fromUnit = document.forms['conv_temperature_ext'].unit_from.value;
+                const toUnit = document.forms['conv_temperature_ext'].unit_to.value;
+
+                const conversionRequest = `<ConversionRequest>
+                                                <amount>${parseFloat(amount)}</amount>
+                                                <fromUnit>${fromUnit}</fromUnit>
+                                                <toUnit>${toUnit}</toUnit>
+                                            </ConversionRequest>`;
+
+                try {
+                    const response = await fetch('http://localhost:8080/api/convertTemperature', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/xml'
+                        },
+                        body: conversionRequest
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(text, "application/xml");
+                    const result = xmlDoc.getElementsByTagName('result')[0].textContent;
+                    const unit = xmlDoc.getElementsByTagName('unit')[0].textContent;
+                    document.getElementById('result').innerText = `${result} ${unit}`;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            } else {
+                if (clicked) alert('Converter error. Conversion not supported by browser.');
+            }
+        }
+
+
+        function swapUnits4() {
+            var fromSelect = document.getElementById('from_temperature');
+            var toSelect = document.getElementById('to_temperature');
+            var temp = fromSelect.value;
+            fromSelect.value = toSelect.value;
+            toSelect.value = temp;
+        }
+        function getCookie4(cname) {
+            var name = cname + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var ca = decodedCookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) === 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";}
+        function dRf4(callback) {
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                callback();
+            } else {
+                document.addEventListener('DOMContentLoaded', callback);
+            }
+        }
+
+        dRf4(function() {
+            execute_temperature_ext(false);
+        });
+    </script>
+    </div>
+    </div>
+    <footer style="background-color:yellowgreen;bottom: 0;left: 0px;right: 0px; position: fixed;width: 100%;"><p style="text-align: center;">Group 15</p></footer>
+</body>
+</html>

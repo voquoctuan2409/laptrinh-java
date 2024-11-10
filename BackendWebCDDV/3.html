@@ -225,10 +225,29 @@
             const unitFrom = document.getElementById("from_volume").value;
             const unitTo = document.getElementById("to_volume").value;
 
+<<<<<<< HEAD
             fetch(`${apiBaseUrl}/volume?amount=${amount}&unitFrom=${unitFrom}&unitTo=${unitTo}`)
                 .then(response => response.json())
                 .then(data => document.getElementById("result_volume").innerText = data)
                 .catch(error => console.error('Lỗi:', error));
+=======
+        function convert2(amount, unitFrom, unitTo, resultElementId, clicked, decimals) {
+            var conversionRates = {
+                "km": 1.0e3,
+                "m": 1.0,
+                "dm": 0.1,
+                "cm": 0.01,
+                "mm": 0.001,
+                "µm": 1.0e-6,
+                "nm": 1.0e-9,
+                "Å": 1.0e-10
+            };
+            var fromRate = conversionRates[unitFrom.split('|')[2]];
+            var toRate = conversionRates[unitTo.split('|')[2]];
+            var result = (parseFloat(amount) * fromRate) / toRate;
+            document.getElementById(resultElementId).innerHTML = result + " " + unitTo.split('|')[2];
+            return result;
+>>>>>>> 6dfc9568026c0ceb6a5764cc7da047f8239c38d4
         }
 
         // Hàm chuyển đổi nhiệt độ
