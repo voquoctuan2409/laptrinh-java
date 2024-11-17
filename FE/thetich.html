@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển Đổi Thể Tích</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 40px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .footer .box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer .box a {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .footer .box a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+        .footer .box iframe {
+            width: 100%;
+            height: 200px;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        .footer p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .footer p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer p a:hover {
+            text-decoration: underline;
+        }
+
+        .intro-text {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-text h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .div_style {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input_conv,
+        .select_conv {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .div2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .text {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #eef5ff;
+            /* Màu nền nhạt xanh */
+            border-radius: 12px;
+            /* Bo góc */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Bóng mờ đẹp */
+            line-height: 1.8;
+            /* Khoảng cách dòng thoải mái */
+            color: #333;
+            /* Màu chữ tối */
+            font-size: 1rem;
+            /* Cỡ chữ */
+        }
+
+
+        .text h3 {
+            font-size: 1.6rem;
+            color: #0056b3;
+            /* Màu xanh đậm */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .text h4 {
+            font-size: 1.3rem;
+            color: #007bff;
+            /* Màu xanh nổi bật */
+            margin-top: 20px;
+        }
+
+        .text p {
+            font-size: 1rem;
+            color: #555;
+            /* Màu chữ nhẹ hơn */
+            margin-bottom: 15px;
+            text-align: justify;
+            /* Căn đều đoạn văn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <img src="image/logo.jpg" alt="Logo" width="30" height="30">
+                CHUYỂN ĐỔI ĐƠN VỊ TRỰC TUYẾN
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.html">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Nhóm Đơn Vị
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="khoiluong.html">Đổi đơn vị Khối lượng</a>
+                            <a class="dropdown-item" href="chieudai.html">Đổi đơn vị Chiều dài</a>
+                            <a class="dropdown-item" href="thetich.html">Đổi đơn vị Thể tích</a>
+                            <a class="dropdown-item" href="nhietdo.html">Đổi đơn vị Nhiệt độ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Giới thiệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <h2 class="text-center">Chuyển Đổi Đơn Vị Trực Tuyến</h2>
+        <p class="text-center">Dễ dàng chuyển đổi giữa các đơn vị đo lường một cách nhanh chóng và chính xác!</p>
+
+        <!-- Introduction Section -->
+        <div class="intro-text">
+            <h3>Chào mừng bạn đến với phần mềm chuyển đổi đơn vị đo lường trực tuyến miễn phí!</h3>
+            <p>Là một công cụ trực tuyến giúp người dùng chuyển đổi các giá trị giữa các đơn vị đo lường khác nhau. Các
+                loại đơn vị phổ biến có thể bao gồm:</p>
+            <ul>
+                <li><strong>Chiều dài:</strong> Chuyển đổi giữa các đơn vị đo chiều dài như mét, kilômét, dặm, inch,
+                    v.v.</li>
+                <li><strong>Khối lượng:</strong> Chuyển đổi giữa các đơn vị đo khối lượng như kilôgam, pound, ounce, tấn,
+                    v.v.</li>
+                <li><strong>Nhiệt độ:</strong> Chuyển đổi giữa các đơn vị đo nhiệt độ như Celsius (°C), Fahrenheit (°F),
+                    Kelvin (K), v.v.</li>
+                <li><strong>Thể tích:</strong> Chuyển đổi giữa các đơn vị đo thể tích như lít, gallon, millilit, pint,
+                    v.v.</li>
+            </ul>
+        </div>
+
+        <!-- Chuyển đổi Thể tích -->
+        <div class="div_style">
+            <h3>Chuyển đổi Thể tích</h3>
+            <form id="conv_volume" onsubmit="convertVolume(); return false;">
+                <label for="amount_volume">Tôi muốn chuyển đổi:</label>
+                <input type="number" id="amount_volume" aria-label="Số lượng" value="1" class="input_conv" onchange="convertVolume();" />
+                <select id="from_volume" class="select_conv" onchange="convertVolume();">
+                    <option value="m³">Mét khối (m³)</option>
+                    <option value="l">Lít (l)</option>
+                    <option value="ml">Millilít (ml)</option>
+                    <option value="cm³">Centimet khối (cm³)</option>
+                    <option value="km³">Kilomet khối (km³)</option>
+                    <option value="hl">Hectolít (hl)</option>
+                    <option value="decaliter">Decalít (decaliter)</option>
+                    <option value="dl">Decilít (dl)</option>
+                    <option value="cl">Centilít (cl)</option>
+                    <option value="mm³">Milimet khối (mm³)</option>
+                    <option value="µl">Microlít (µl)</option>
+                    <!-- Thêm các tùy chọn đơn vị khác nếu cần -->
+                </select>
+                <label for="to_volume">Đến:</label>
+                <select id="to_volume" class="select_conv" onchange="convertVolume();">
+                    <option value="m³">Mét khối (m³)</option>
+                    <option value="l">Lít (l)</option>
+                    <option value="ml">Millilít (ml)</option>
+                    <option value="cm³">Centimet khối (cm³)</option>
+                    <option value="km³">Kilomet khối (km³)</option>
+                    <option value="hl">Hectolít (hl)</option>
+                    <option value="decaliter">Decalít (decaliter)</option>
+                    <option value="dl">Decilít (dl)</option>
+                    <option value="cl">Centilít (cl)</option>
+                    <option value="mm³">Milimet khối (mm³)</option>
+                    <option value="µl">Microlít (µl)</option>
+                    <!-- Thêm các tùy chọn đơn vị khác nếu cần -->
+                </select>
+                <div class="div2">
+                    <button type="button" onclick="swapUnits('from_volume', 'to_volume'); convertVolume();">Đổi đơn vị</button>
+                    <div class="result" id="result_volume">-</div>
+                </div>
+            </form>
+        </div>
+
+    <div class="text">
+        <h3>Thể tích là gì?</h3>
+        <p>Thể tích là lượng không gian mà một vật hoặc chất chiếm trong không gian ba chiều. Thể tích thường được đo bằng các 
+            đơn vị như lít (L), mililit (mL), mét khối (m³), hoặc các đơn vị thể tích khác trong Hệ đo lường quốc tế (SI).</p>
+        
+        <h4>Mét khối (m³) là gì?</h4>
+        <p>Là đơn vị chuẩn đo thể tích trong Hệ đo lường quốc tế (SI).</p>
+        <p>1 m³ tương đương với thể tích của một hình lập phương có cạnh dài 1 mét.</p>
+        <p>Thường dùng để đo thể tích lớn như bể nước, phòng, hoặc các công trình kiến trúc.</p>
+
+        <h4>Lít (l) là gì?</h4>
+        <p>Là đơn vị thể tích phổ biến, thường dùng để đo chất lỏng.</p>
+        <p>1 lít = 0,001 m³ = 1.000 ml.</p>
+        <p>Thường dùng cho nước, dầu, sữa, hoặc các chất lỏng khác.</p>
+
+        <h4>Millilít (ml) là gì?</h4>
+        <p>Là một đơn vị nhỏ hơn của lít.</p>
+        <p>1 ml = 0,001 l = 1 cm³.</p>
+        <p>Thường dùng để đo lượng chất lỏng nhỏ như thuốc, gia vị, hoặc mỹ phẩm.</p>
+
+        <h4>Centimet khối (cm³) là gì?</h4>
+        <p>Là đơn vị thể tích được định nghĩa từ kích thước của một khối lập phương cạnh 1 cm.</p>
+        <p>1 cm³ = 1 ml.</p>
+        <p>Thường dùng trong các ngành kỹ thuật và y tế.</p>
+
+        <h4>Kilomet khối (km³) là gì?</h4>
+        <p>Là đơn vị thể tích rất lớn, tương đương với một khối lập phương cạnh 1 kilomet.</p>
+        <p>1 km³ = 1.000.000.000 m³.</p>
+        <p>Thường dùng để đo thể tích đại dương, hồ, hoặc các khối lượng thiên nhiên lớn.</p>
+
+        <h4>Hectolít (hl) là gì?</h4>
+        <p>1 hectolít = 100 lít.</p>
+        <p>Thường dùng trong sản xuất bia, rượu, hoặc các ngành công nghiệp thực phẩm.</p>
+
+        <h4>Decalít (dal) là gì</h4>
+        <p>1 decalít = 10 lít.</p>
+        <p>Dùng trong đo lường lượng chất lỏng trung bình, thường trong sản xuất và chế biến.</p>
+
+        <h4>Decilít (dl) là gì</h4>
+        <p>1 decilít = 0,1 lít = 100 ml.</p>
+        <p>Thường dùng trong công thức nấu ăn hoặc đo lường nhỏ.</p>
+
+        <h4>Centilít (cl) là gì</h4>
+        <p>1 centilít = 0,01 lít = 10 ml.</p>
+        <p>Phổ biến trong các lĩnh vực như pha chế đồ uống.</p>
+
+        <h4>Milimét khối (mm³) là gì?</h4>
+        <p>Là đơn vị rất nhỏ, tương đương với một khối lập phương cạnh 1 milimet.</p>
+        <p>1 mm³ = 0,000001 lít.</p>
+        <p>Dùng trong đo lường vi mô, ví dụ như thể tích của hạt bụi hoặc giọt chất lỏng.</p>
+
+        <h4>Microlít (µl) là gì?</h4>
+        <p>Là đơn vị cực nhỏ của thể tích, thường dùng trong các ngành khoa học và y tế.</p>
+        <p>1 µl = 0,001 ml = 0,000001 lít.</p>
+        <p>Ví dụ: lượng thuốc tiêm hoặc chất hóa học.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Liên hệ</h3>
+                <a href="#">Email</a>
+                <a href="#">Số điện thoại</a>
+                <a href="#">Địa chỉ</a>
+            </div>
+            <div class="box">
+                <h3>Thông tin</h3>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Câu hỏi thường gặp</a>
+                <a href="#">Điều khoản sử dụng</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <p>© 2024 <a href="home.html">Chuyển Đổi Đơn Vị</a>. Tất cả quyền lợi được bảo vệ. <a href="#">Chính sách bảo
+                mật</a></p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Conversion JS -->
+    <script type="text/javascript">
+        const apiBaseUrl = "http://localhost:8080/api/conversion/volume"; // Địa chỉ API backend
+
+        // Hàm chuyển đổi thể tích
+        function convertVolume() {
+            const amount = document.getElementById("amount_volume").value;
+            const unitFrom = document.getElementById("from_volume").value;
+            const unitTo = document.getElementById("to_volume").value;
+
+            fetch(`${apiBaseUrl}?amount=${amount}&unitFrom=${unitFrom}&unitTo=${unitTo}`)
+                .then(response => response.json())
+                .then(data => document.getElementById("result_volume").innerText = data)
+                .catch(error => console.error('Lỗi:', error));
+        }
+
+        // Hàm hoán đổi đơn vị
+        function swapUnits(fromId, toId) {
+            const fromValue = document.getElementById(fromId).value;
+            const toValue = document.getElementById(toId).value;
+
+            document.getElementById(fromId).value = toValue;
+            document.getElementById(toId).value = fromValue;
+        }
+    </script>
+</body>
+
+</html>

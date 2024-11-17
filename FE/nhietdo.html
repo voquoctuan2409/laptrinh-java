@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển Đổi Thể Tích</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 40px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .footer .box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer .box a {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .footer .box a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+        .footer .box iframe {
+            width: 100%;
+            height: 200px;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        .footer p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .footer p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer p a:hover {
+            text-decoration: underline;
+        }
+
+        .intro-text {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-text h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .div_style {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input_conv,
+        .select_conv {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .div2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .text {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #eef5ff;
+            /* Màu nền nhạt xanh */
+            border-radius: 12px;
+            /* Bo góc */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Bóng mờ đẹp */
+            line-height: 1.8;
+            /* Khoảng cách dòng thoải mái */
+            color: #333;
+            /* Màu chữ tối */
+            font-size: 1rem;
+            /* Cỡ chữ */
+        }
+
+
+        .text h3 {
+            font-size: 1.6rem;
+            color: #0056b3;
+            /* Màu xanh đậm */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .text h4 {
+            font-size: 1.3rem;
+            color: #007bff;
+            /* Màu xanh nổi bật */
+            margin-top: 20px;
+        }
+
+        .text p {
+            font-size: 1rem;
+            color: #555;
+            /* Màu chữ nhẹ hơn */
+            margin-bottom: 15px;
+            text-align: justify;
+            /* Căn đều đoạn văn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <img src="image/logo.jpg" alt="Logo" width="30" height="30">
+                CHUYỂN ĐỔI ĐƠN VỊ TRỰC TUYẾN
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.html">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Nhóm Đơn Vị
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="khoiluong.html">Đổi đơn vị Khối lượng</a>
+                            <a class="dropdown-item" href="chieudai.html">Đổi đơn vị Chiều dài</a>
+                            <a class="dropdown-item" href="thetich.html">Đổi đơn vị Thể tích</a>
+                            <a class="dropdown-item" href="nhietdo.html">Đổi đơn vị Nhiệt độ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Giới thiệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <h2 class="text-center">Chuyển Đổi Đơn Vị Trực Tuyến</h2>
+        <p class="text-center">Dễ dàng chuyển đổi giữa các đơn vị đo lường một cách nhanh chóng và chính xác!</p>
+
+        <!-- Introduction Section -->
+        <div class="intro-text">
+            <h3>Chào mừng bạn đến với phần mềm chuyển đổi đơn vị đo lường trực tuyến miễn phí!</h3>
+            <p>Là một công cụ trực tuyến giúp người dùng chuyển đổi các giá trị giữa các đơn vị đo lường khác nhau. Các
+                loại đơn vị phổ biến có thể bao gồm:</p>
+            <ul>
+                <li><strong>Chiều dài:</strong> Chuyển đổi giữa các đơn vị đo chiều dài như mét, kilômét, dặm, inch,
+                    v.v.</li>
+                <li><strong>Khối lượng:</strong> Chuyển đổi giữa các đơn vị đo khối lượng như kilôgam, pound, ounce, tấn,
+                    v.v.</li>
+                <li><strong>Nhiệt độ:</strong> Chuyển đổi giữa các đơn vị đo nhiệt độ như Celsius (°C), Fahrenheit (°F),
+                    Kelvin (K), v.v.</li>
+                <li><strong>Thể tích:</strong> Chuyển đổi giữa các đơn vị đo thể tích như lít, gallon, millilit, pint,
+                    v.v.</li>
+            </ul>
+        </div>
+
+        <!-- Chuyển đổi Nhiệt độ -->
+        <div class="div_style">
+            <h3>Chuyển đổi Nhiệt độ</h3>
+            <form id="conv_temperature" onsubmit="convertTemperature(); return false;">
+                <label for="amount_temperature">Tôi muốn chuyển đổi:</label>
+                <input type="number" id="amount_temperature" aria-label="Số lượng" value="1" class="input_conv" onchange="convertTemperature();" />
+                <select id="from_temperature" class="select_conv" onchange="convertTemperature();">
+                    <option value="C">Celsius (°C)</option>
+                    <option value="K">Kelvin (K)</option>
+                    <option value="F">Fahrenheit (°F)</option>
+                    <option value="R">Réaumur (°Re)</option>
+                    <option value="rankine">Rankine (°Ra)</option>
+                </select>
+                <label for="to_temperature">Đến:</label>
+                <select id="to_temperature" class="select_conv" onchange="convertTemperature();">
+                    <option value="C">Celsius (°C)</option>
+                    <option value="K">Kelvin (K)</option>
+                    <option value="F">Fahrenheit (°F)</option>
+                    <option value="R">Réaumur (°Re)</option>
+                    <option value="rankine">Rankine (°Ra)</option>
+                </select>
+                <div class="div2">
+                    <button type="button" onclick="swapUnits('from_temperature', 'to_temperature'); convertTemperature();">Đổi đơn vị</button>
+                    <div class="result" id="result_temperature">-</div>
+                </div>
+            </form>
+        </div>
+
+        <div class="text">
+            <h3>Nhiệt độ là gì?</h3>
+            <p>Nhiệt độ là một đại lượng vật lý biểu thị mức độ nóng hay lạnh của một vật thể, môi trường, hoặc hệ thống. 
+               Nó phản ánh mức năng lượng nhiệt của các hạt (nguyên tử, phân tử) cấu tạo nên vật thể.</p>
+        
+            <h4>Celsius (°C) là gì?</h4>
+            <p>Là thang đo phổ biến nhất trên thế giới, dùng trong đời sống và khoa học.</p>
+            <ul>
+                <li>0°C: Nhiệt độ nước đóng băng.</li>
+                <li>100°C: Nhiệt độ nước sôi (ở áp suất chuẩn 1 atm).</li>
+            </ul>
+        
+            <h4>Kelvin (K) là gì?</h4>
+            <p>Là đơn vị chuẩn của nhiệt độ trong Hệ đo lường quốc tế (SI).</p>
+            <ul>
+                <li>0 K: Độ không tuyệt đối, nhiệt độ thấp nhất có thể đạt được.</li>
+                <li>1 K = 1°C (nhưng Kelvin không dùng dấu "°").</li>
+                <li>Công thức chuyển đổi: K = °C + 273.15.</li>
+            </ul>
+        
+            <h4>Fahrenheit (°F) là gì?</h4>
+            <p>Là thang đo nhiệt độ phổ biến tại Mỹ và một số quốc gia khác.</p>
+            <ul>
+                <li>32°F: Nhiệt độ nước đóng băng.</li>
+                <li>212°F: Nhiệt độ nước sôi (ở áp suất chuẩn 1 atm).</li>
+                <li>Công thức chuyển đổi: °F = °C × 9/5 + 32.</li>
+            </ul>
+        
+            <h4>Réaumur (°Re) là gì?</h4>
+            <p>Là thang đo ít phổ biến, từng được sử dụng tại châu Âu thế kỷ 18.</p>
+            <ul>
+                <li>0°Re: Nhiệt độ nước đóng băng.</li>
+                <li>80°Re: Nhiệt độ nước sôi.</li>
+                <li>Công thức chuyển đổi: °Re = °C × 4/5.</li>
+            </ul>
+        
+            <h4>Rankine (°Ra) là gì?</h4>
+            <p>Là thang đo dựa trên Fahrenheit, nhưng tính từ độ không tuyệt đối.</p>
+            <ul>
+                <li>0°Ra: Độ không tuyệt đối.</li>
+                <li>Công thức chuyển đổi: °Ra = °F + 459.67.</li>
+            </ul>
+        </div>
+        
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Liên hệ</h3>
+                <a href="#">Email</a>
+                <a href="#">Số điện thoại</a>
+                <a href="#">Địa chỉ</a>
+            </div>
+            <div class="box">
+                <h3>Thông tin</h3>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Câu hỏi thường gặp</a>
+                <a href="#">Điều khoản sử dụng</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <p>© 2024 <a href="home.html">Chuyển Đổi Đơn Vị</a>. Tất cả quyền lợi được bảo vệ. <a href="#">Chính sách bảo
+                mật</a></p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Conversion JS -->
+    <script type="text/javascript">
+        const apiBaseUrl = "http://localhost:8080/api/conversion/temperature"; // Địa chỉ API backend
+
+        // Hàm chuyển đổi nhiệt độ
+        function convertTemperature() {
+            const amount = document.getElementById("amount_temperature").value;
+            const unitFrom = document.getElementById("from_temperature").value;
+            const unitTo = document.getElementById("to_temperature").value;
+
+            fetch(`${apiBaseUrl}?amount=${amount}&unitFrom=${unitFrom}&unitTo=${unitTo}&decimals=2`)
+                .then(response => response.json())
+                .then(data => document.getElementById("result_temperature").innerText = data)
+                .catch(error => console.error('Lỗi:', error));
+        }
+
+        // Hàm hoán đổi đơn vị
+        function swapUnits(fromId, toId) {
+            const fromValue = document.getElementById(fromId).value;
+            const toValue = document.getElementById(toId).value;
+
+            document.getElementById(fromId).value = toValue;
+            document.getElementById(toId).value = fromValue;
+        }
+    </script>
+</body>
+
+</html>

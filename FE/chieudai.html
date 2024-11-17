@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyển Đổi Chiều Dài</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            margin-bottom: 40px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .navbar-nav .nav-link {
+            color: white;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ddd;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+        }
+
+        .footer .box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .footer .box a {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+
+        .footer .box a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+        .footer .box iframe {
+            width: 100%;
+            height: 200px;
+            border: 0;
+            border-radius: 5px;
+        }
+
+        .footer p {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .footer p a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer p a:hover {
+            text-decoration: underline;
+        }
+
+        .intro-text {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-text h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .div_style {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input_conv,
+        .select_conv {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .div2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .text {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #eef5ff;
+            /* Màu nền nhạt xanh */
+            border-radius: 12px;
+            /* Bo góc */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            /* Bóng mờ đẹp */
+            line-height: 1.8;
+            /* Khoảng cách dòng thoải mái */
+            color: #333;
+            /* Màu chữ tối */
+            font-size: 1rem;
+            /* Cỡ chữ */
+        }
+
+
+        .text h3 {
+            font-size: 1.6rem;
+            color: #0056b3;
+            /* Màu xanh đậm */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .text h4 {
+            font-size: 1.3rem;
+            color: #007bff;
+            /* Màu xanh nổi bật */
+            margin-top: 20px;
+        }
+
+        .text p {
+            font-size: 1rem;
+            color: #555;
+            /* Màu chữ nhẹ hơn */
+            margin-bottom: 15px;
+            text-align: justify;
+            /* Căn đều đoạn văn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">
+                <img src="image/logo.jpg" alt="Logo" width="30" height="30">
+                CHUYỂN ĐỔI ĐƠN VỊ TRỰC TUYẾN
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.html">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Nhóm Đơn Vị
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="khoiluong.html">Đổi đơn vị Khối lượng</a>
+                            <a class="dropdown-item" href="chieudai.html">Đổi đơn vị Chiều dài</a>
+                            <a class="dropdown-item" href="thetich.html">Đổi đơn vị Thể tích</a>
+                            <a class="dropdown-item" href="nhietdo.html">Đổi đơn vị Nhiệt độ</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="home.html">Giới thiệu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+        <h2 class="text-center">Chuyển Đổi Đơn Vị Trực Tuyến</h2>
+        <p class="text-center">Dễ dàng chuyển đổi giữa các đơn vị đo lường một cách nhanh chóng và chính xác!</p>
+
+        <!-- Introduction Section -->
+        <div class="intro-text">
+            <h3>Chào mừng bạn đến với phần mềm chuyển đổi đơn vị đo lường trực tuyến miễn phí!</h3>
+            <p>Là một công cụ trực tuyến giúp người dùng chuyển đổi các giá trị giữa các đơn vị đo lường khác nhau. Các
+                loại đơn vị phổ biến có thể bao gồm:</p>
+            <ul>
+                <li><strong>Chiều dài:</strong> Chuyển đổi giữa các đơn vị đo chiều dài như mét, kilômét, dặm, inch,
+                    v.v.</li>
+                <li><strong>Khối lượng:</strong> Chuyển đổi giữa các đơn vị đo khối lượng như kilôgam, pound, ounce, tấn,
+                    v.v.</li>
+                <li><strong>Nhiệt độ:</strong> Chuyển đổi giữa các đơn vị đo nhiệt độ như Celsius (°C), Fahrenheit (°F),
+                    Kelvin (K), v.v.</li>
+                <li><strong>Thể tích:</strong> Chuyển đổi giữa các đơn vị đo thể tích như lít, gallon, millilit, pint,
+                    v.v.</li>
+            </ul>
+        </div>
+
+        <!-- Convert Length -->
+        <div class="div_style">
+            <h3>Chuyển đổi Chiều dài</h3>
+            <form id="conv_length" onsubmit="convertLength(); return false;">
+                <label for="amount_length">Tôi muốn chuyển đổi:</label>
+                <input type="number" step="any" id="amount_length" value="1" class="input_conv"
+                    onchange="convertLength();" />
+                <select id="from_length" class="select_conv" onchange="convertLength();">
+                    <option value="km">Kilomet (km)</option>
+                    <option value="m">Mét (m)</option>
+                    <option value="cm">Centimet (cm)</option>
+                    <option value="mm">Milimét (mm)</option>
+                    <option value="µm">Micrômét (µm)</option>
+                    <option value="nm">Nanomét (nm)</option>
+                    <option value="Å">Angstrom (Å)</option>
+                </select>
+                <label for="to_length">Đến:</label>
+                <select id="to_length" class="select_conv" onchange="convertLength();">
+                    <option value="km">Kilomet (km)</option>
+                    <option value="m">Mét (m)</option>
+                    <option value="cm">Centimet (cm)</option>
+                    <option value="mm">Milimét (mm)</option>
+                    <option value="µm">Micrômét (µm)</option>
+                    <option value="nm">Nanomét (nm)</option>
+                    <option value="Å">Angstrom (Å)</option>
+                </select>
+                <div class="div2">
+                    <button type="button" onclick="swapUnits('from_length', 'to_length'); convertLength();">Đổi đơn
+                        vị</button>
+                    <div class="result" id="result_length"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="text">
+        <h3>Chiều dài là gì?</h3>
+        <p>Trong vật lý, chiều dài (hay khoảng cách, chiều cao, chiều rộng, độ dài, kích thước, quãng đường,..) là khái
+            niệm cơ bản chỉ trình tự của các điểm dọc theo một đường nằm trong không gian và đo lượng (nhiều hay ít) mà
+            điểm này nằm trước hoặc sau điểm kia.</p>
+        <p>Trong ngôn ngữ thông dụng, chiều dài là một trường hợp của khoảng cách.</p>
+
+        <h4>Kilomet (Km) là gì?</h4>
+        <p>Kilomet là đơn vị đo chiều dài thuộc Hệ mét, km nằm trong Hệ thống đo lường SI và được sử dụng bởi Văn phòng
+            Cân đo Quốc tế.</p>
+        <p>Kilomet được sử dụng chính thức để đo khoảng cách trên đất liền, trong lĩnh vực giao thông vận tải và cả quy
+            hoạch. 1km bằng 1000 m, đơn vị diện tích và thể tích tương ứng lần lượt là kilomet vuông (km²) và kilomet
+            khối (km³).</p>
+        <p>Cách phát âm đơn vị km ở một số quốc gia cũng có sự khác nhau: Ở Anh người ta phát âm là “k” (/k eɪ/) còn ở
+            Mỹ lại có tiếng lóng là klick.</p>
+
+        <h4>Mét (Metre) là gì?</h4>
+        <p>Mét (tiếng Pháp: mètre, tiếng Anh: metre (Anh) hoặc meter (Mỹ)) là đơn vị đo khoảng cách, một trong 7 đơn vị
+            cơ bản trong hệ đo lường quốc tế (SI), viết tắt là m.</p>
+        <p>Mét được định nghĩa là chiều dài của con đường đi du lịch bằng ánh sáng trong chân không trong 1/299 792 458
+            của một giây...</p>
+
+        <h4>Centimet là gì?</h4>
+        <p>Một centimet (đọc là xen-ti-mét hay xăng-ti-mét) viết tắt là cm là một khoảng cách bằng 1/100 mét.Tiếng Việt
+            còn gọi đơn vị này là phân tây.</p>
+        <p>Trong hệ đo lường quốc tế, xentimét là đơn vị đo được suy ra từ đơn vị cơ bản mét theo định nghĩa trên. Chữ
+            xenti (hoặc trong viết tắt là c) viết liền trước các đơn vị trong hệ đo lường quốc tế để chỉ rằng đơn vị này
+            bằng đơn vị gốc chia cho 100.</p>
+
+        <h4>Millimet là gì?</h4>
+        <p>Một milimét (viết tắt là mm) là một khoảng cách bằng 1/1000 mét. Trong hệ đo lường quốc tế, milimét là đơn vị
+            đo được suy ra từ đơn vị cơ bản mét theo định nghĩa trên.</p>
+        <p>Milimét được sử dụng để đo khoảng cách và chiều dài tương đối nhỏ, có thể dễ dàng nhìn thấy được. Millimetre
+            là đơn vị đo cực kỳ thông dụng, hầu hết để xác định kích thước của vật thể cỡ nhỏ chúng ta đều có thể quy
+            đổi
+            về millimetre (mm).</p>
+
+        <h4>Micromet là gì?</h4>
+        <p>Một micrômét (viết tắt là µm) là một khoảng cách bằng một phần triệu mét (10−6 m). Chữ micro (hoặc trong viết
+            tắt là µ)
+            viết liền trước các đơn vị trong hệ đo lường quốc tế để chỉ rằng đơn vị này được chia cho 1 000 000 lần.</p>
+        <p>Đơn vị này thường được sử dụng để đo độ dày hoặc đường kính của các vật thể vi mô như vi sinh vật và các hạt
+            keo.</p>
+
+        <h4>Nanomet là gì?</h4>
+        <p>Một nanômét (viết tắt là nm) là một đơn vị bằng 1.10−9. Chữ nanô (hoặc trong viết tắt là n) viết liền trước
+            các đơn vị
+            trong hệ đo lường quốc tế để chỉ rằng đơn vị này được chia 1 000 000 000 (1 tỉ) lần.</p>
+        <p>Đơn vị này thường được sử dụng để đo các khoảng cách rất nhỏ trong các lĩnh vực khoa học và công nghệ, chẳng
+            hạn như kích
+            thước của các phân tử, nguyên tử, và các cấu trúc nano.</p>
+
+        <h4>Angstrom là gì?</h4>
+        <p>Ångström(/ˈæŋstrəm/, /ˈæŋstrʌm/;) (viết tắt là Å, đọc là "ăng-strôm") là một đơn vị đo độ dài. Nó không phải
+            là một đơn vị
+            đo độ dài nằm trong SI, tuy nhiên đôi khi được dùng cùng các đơn vị của SI, mặc dù việc này không được
+            khuyến khích. 1 ångström
+            (Å) = 10−10 mét =10-4 micrômét = 0,1 nanômét = 100 picômét</p>
+        <p>Nó đôi khi được dùng để thể hiện kích thước của nguyên tử, chiều dài của liên kết hóa học và bước sóng ánh
+            sáng. Đơn vị đo này được
+            đặt tên theo nhà vật lý người Thụy Điển Anders Jonas Ångström, một trong số những người đã gây dựng nên môn
+            quang phổ học.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Liên hệ</h3>
+                <a href="#">Email</a>
+                <a href="#">Số điện thoại</a>
+                <a href="#">Địa chỉ</a>
+            </div>
+            <div class="box">
+                <h3>Thông tin</h3>
+                <a href="#">Giới thiệu</a>
+                <a href="#">Câu hỏi thường gặp</a>
+                <a href="#">Điều khoản sử dụng</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <p>© 2024 <a href="home.html">Chuyển Đổi Đơn Vị</a>. Tất cả quyền lợi được bảo vệ. <a href="#">Chính sách bảo
+                mật</a></p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Conversion JS -->
+    <script type="text/javascript">
+        const apiBaseUrl = "http://localhost:8080/api/conversion/length"; // Địa chỉ API backend
+
+        // Hàm chuyển đổi chiều dài
+        function convertLength() {
+            const amount = document.getElementById("amount_length").value;
+            const unitFrom = document.getElementById("from_length").value;
+            const unitTo = document.getElementById("to_length").value;
+
+            fetch(`${apiBaseUrl}?amount=${amount}&unitFrom=${unitFrom}&unitTo=${unitTo}`)
+                .then(response => response.json())
+                .then(data => document.getElementById("result_length").innerText = data)
+                .catch(error => console.error('Lỗi:', error));
+        }
+
+        // Hàm hoán đổi đơn vị
+        function swapUnits(fromId, toId) {
+            const fromValue = document.getElementById(fromId).value;
+            const toValue = document.getElementById(toId).value;
+
+            document.getElementById(fromId).value = toValue;
+            document.getElementById(toId).value = fromValue;
+        }
+    </script>
+</body>
+
+</html>
