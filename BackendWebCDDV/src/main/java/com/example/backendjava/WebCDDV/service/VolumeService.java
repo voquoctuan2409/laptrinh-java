@@ -35,4 +35,5 @@ public class VolumeService {
 
         return (amount * fromRate) / toRate;
     }
+
 }

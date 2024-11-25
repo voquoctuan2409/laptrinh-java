@@ -1,10 +1,11 @@
 package com.example.backendjava.WebCDDV.controller;
 
+import com.example.backendjava.WebCDDV.model.ConversionRequest;
+import com.example.backendjava.WebCDDV.model.ConversionResponse;
 import com.example.backendjava.WebCDDV.service.LengthService;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost")
-
 @RestController
 @RequestMapping("/api/conversion")
 public class LengthController {
@@ -15,8 +16,9 @@ public class LengthController {
         this.lengthService = lengthService;
     }
 
-    @GetMapping("/length")
-    public double convertLength(@RequestParam double amount, @RequestParam String unitFrom, @RequestParam String unitTo) {
-        return lengthService.convertLength(amount, unitFrom, unitTo);
+    @PostMapping("/length")
+    public ConversionResponse convertLength(@RequestBody ConversionRequest request) {
+        double result = lengthService.convertLength(request.getAmount(), request.getUnitFrom(), request.getUnitTo());
+        return new ConversionResponse(result);
     }
 }

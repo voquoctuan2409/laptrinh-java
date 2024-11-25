@@ -1,13 +1,11 @@
 package com.example.backendjava.WebCDDV.service;
 
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
 public class LengthService {
-
     private final Map<String, Double> conversionRates;
 
     // Constructor để khởi tạo các tỷ lệ chuyển đổi
@@ -34,7 +32,8 @@ public class LengthService {
         double fromRate = conversionRates.get(unitFrom);
         double toRate = conversionRates.get(unitTo);
 
-        // Tính kết quả chuyển đổi
         return (amount * fromRate) / toRate;
     }
+
+
 }

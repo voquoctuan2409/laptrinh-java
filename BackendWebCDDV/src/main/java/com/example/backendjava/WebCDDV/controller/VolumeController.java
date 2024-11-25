@@ -1,5 +1,7 @@
 package com.example.backendjava.WebCDDV.controller;
 
+import com.example.backendjava.WebCDDV.model.ConversionRequest;
+import com.example.backendjava.WebCDDV.model.ConversionResponse;
 import com.example.backendjava.WebCDDV.service.VolumeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +16,9 @@ public class VolumeController {
         this.volumeService = volumeService;
     }
 
-    @GetMapping("/volume")
-    public double convertVolume(@RequestParam double amount, @RequestParam String unitFrom, @RequestParam String unitTo) {
-        return volumeService.convertVolume(amount, unitFrom, unitTo);
+    @PostMapping("/volume")
+    public ConversionResponse convertVolume(@RequestBody ConversionRequest request) {
+        double result = volumeService.convertVolume(request.getAmount(), request.getUnitFrom(), request.getUnitTo());
+        return new ConversionResponse(result);
     }
 }

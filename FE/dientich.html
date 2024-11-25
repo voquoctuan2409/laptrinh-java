@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chuyển Đổi Thể Tích</title>
+    <title>Chuyển Đổi Diện Tích</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -74,107 +74,65 @@
             </ul>
         </div>
 
-        <!-- Chuyển đổi Thể tích -->
+        <!-- Chuyển đổi Diện Tích -->
         <div class="div_style">
-            <h3>Chuyển đổi Thể tích</h3>
-            <form id="conv_volume" onsubmit="convertVolume(); return false;">
-                <label for="amount_volume">Tôi muốn chuyển đổi:</label>
-                <input type="number" id="amount_volume" aria-label="Số lượng" value="1" class="input_conv"
-                    onchange="convertVolume();" />
-                <select id="from_volume" class="select_conv" onchange="convertVolume();">
-                    <option value="m³">Mét khối (m³)</option>
-                    <option value="l">Lít (l)</option>
-                    <option value="ml">Millilít (ml)</option>
-                    <option value="cm³">Centimet khối (cm³)</option>
-                    <option value="km³">Kilomet khối (km³)</option>
-                    <option value="hl">Hectolít (hl)</option>
-                    <option value="decaliter">Decalít (decaliter)</option>
-                    <option value="dl">Decilít (dl)</option>
-                    <option value="cl">Centilít (cl)</option>
-                    <option value="mm³">Milimet khối (mm³)</option>
-                    <option value="µl">Microlít (µl)</option>
-                    <!-- Thêm các tùy chọn đơn vị khác nếu cần -->
+            <h3>Chuyển đổi Diện tích</h3>
+            <form id="conv_area" onsubmit="convertArea(); return false;">
+                <label for="amount_area">Tôi muốn chuyển đổi:</label>
+                <input type="number" step="any" id="amount_area" value="1" class="input_conv"
+                    onchange="convertArea();" />
+                    <select id="from_area" class="select_conv" onchange="convertArea();">
+                    <option value="km²">Kilomet vuông (km²)</option>
+                    <option value="m²">Mét vuông (m²)</option>
+                    <option value="cm²">Centimet vuông (cm²)</option>
+                    <option value="mm²">Milimet vuông (mm²)</option>
+                    <option value="ha">Hecta (ha)</option>
+                    <option value="a">Acre (a)</option>
                 </select>
-                <label for="to_volume">Đến:</label>
-                <select id="to_volume" class="select_conv" onchange="convertVolume();">
-                    <option value="m³">Mét khối (m³)</option>
-                    <option value="l">Lít (l)</option>
-                    <option value="ml">Millilít (ml)</option>
-                    <option value="cm³">Centimet khối (cm³)</option>
-                    <option value="km³">Kilomet khối (km³)</option>
-                    <option value="hl">Hectolít (hl)</option>
-                    <option value="decaliter">Decalít (decaliter)</option>
-                    <option value="dl">Decilít (dl)</option>
-                    <option value="cl">Centilít (cl)</option>
-                    <option value="mm³">Milimet khối (mm³)</option>
-                    <option value="µl">Microlít (µl)</option>
-                    <!-- Thêm các tùy chọn đơn vị khác nếu cần -->
+                <label for="to_area">Đến:</label>
+                <select id="to_area" class="select_conv" onchange="convertArea();">
+                    <option value="km²">Kilomet vuông (km²)</option>
+                    <option value="m²">Mét vuông (m²)</option>
+                    <option value="cm²">Centimet vuông (cm²)</option>
+                    <option value="mm²">Milimet vuông (mm²)</option>
+                    <option value="ha">Hecta (ha)</option>
+                    <option value="a">Acre (a)</option>
                 </select>
                 <div class="div2">
-                    <button type="button" onclick="swapUnits('from_volume', 'to_volume'); convertVolume();">Đổi đơn
-                        vị</button>
-                    <div class="result" id="result_volume">-</div>
+                    <button type="button" onclick="swapUnits('from_area', 'to_area'); convertArea();">Đổi đơn vị</button>
+                    <div class="result" id="result_area">-</div>
                 </div>
             </form>
         </div>
 
         <div class="text">
-            <h3>Thể tích là gì?</h3>
-            <p>Thể tích là lượng không gian mà một vật hoặc chất chiếm trong không gian ba chiều. Thể tích thường được
-                đo bằng các
-                đơn vị như lít (L), mililit (mL), mét khối (m³), hoặc các đơn vị thể tích khác trong Hệ đo lường quốc tế
-                (SI).</p>
+            <h3>Diện tích là gì</h3>
+            <p>Diện tích là lượng không gian hai chiều (2D) mà một bề mặt hoặc một hình chiếm. Nó thường được đo bằng các 
+                đơn vị như mét vuông (m²), centimet vuông (cm²), hoặc các đơn vị khác tùy theo hệ đo lường.</p>
 
-            <h4>Mét khối (m³) là gì?</h4>
-            <p>Là đơn vị chuẩn đo thể tích trong Hệ đo lường quốc tế (SI).</p>
-            <p>1 m³ tương đương với thể tích của một hình lập phương có cạnh dài 1 mét.</p>
-            <p>Thường dùng để đo thể tích lớn như bể nước, phòng, hoặc các công trình kiến trúc.</p>
+            <h4>Kilomet vuông (km²) là gì?</h4>    
+            <p>Là đơn vị lớn dùng để đo các diện tích rộng, như diện tích thành phố, quốc gia.</p>
+            <p>1 km² = 1.000.000 m².</p>
 
-            <h4>Lít (l) là gì?</h4>
-            <p>Là đơn vị thể tích phổ biến, thường dùng để đo chất lỏng.</p>
-            <p>1 lít = 0,001 m³ = 1.000 ml.</p>
-            <p>Thường dùng cho nước, dầu, sữa, hoặc các chất lỏng khác.</p>
+            <h4>Mét vuông (m²) là gì?</h4>
+            <p>Là đơn vị cơ bản trong hệ mét để đo diện tích, thường dùng trong đo đất, nhà cửa.</p>
+            <p>1 m² = 10.000 cm².</p>
 
-            <h4>Millilít (ml) là gì?</h4>
-            <p>Là một đơn vị nhỏ hơn của lít.</p>
-            <p>1 ml = 0,001 l = 1 cm³.</p>
-            <p>Thường dùng để đo lượng chất lỏng nhỏ như thuốc, gia vị, hoặc mỹ phẩm.</p>
+            <h4>Centimet vuông (cm²) là gì?</h4>
+            <p>Là đơn vị nhỏ hơn, thường dùng để đo diện tích của các vật nhỏ như sách, giấy.</p>
+            <p>1 cm² = 100 mm².</p>
 
-            <h4>Centimet khối (cm³) là gì?</h4>
-            <p>Là đơn vị thể tích được định nghĩa từ kích thước của một khối lập phương cạnh 1 cm.</p>
-            <p>1 cm³ = 1 ml.</p>
-            <p>Thường dùng trong các ngành kỹ thuật và y tế.</p>
+            <h4>Milimet vuông (mm²) là gì?</h4>
+            <p>Là đơn vị rất nhỏ, thường dùng để đo các diện tích rất bé như vi mạch điện tử.</p>
+            <p>1 mm² = 0,01 cm².</p>
 
-            <h4>Kilomet khối (km³) là gì?</h4>
-            <p>Là đơn vị thể tích rất lớn, tương đương với một khối lập phương cạnh 1 kilomet.</p>
-            <p>1 km³ = 1.000.000.000 m³.</p>
-            <p>Thường dùng để đo thể tích đại dương, hồ, hoặc các khối lượng thiên nhiên lớn.</p>
+            <h4>Hecta (ha) là gì?</h4>
+            <p>Là đơn vị lớn hơn mét vuông, dùng phổ biến trong đo diện tích đất nông nghiệp hoặc rừng.</p>
+            <p>1 ha = 10.000 m².</p>
 
-            <h4>Hectolít (hl) là gì?</h4>
-            <p>1 hectolít = 100 lít.</p>
-            <p>Thường dùng trong sản xuất bia, rượu, hoặc các ngành công nghiệp thực phẩm.</p>
-
-            <h4>Decalít (dal) là gì</h4>
-            <p>1 decalít = 10 lít.</p>
-            <p>Dùng trong đo lường lượng chất lỏng trung bình, thường trong sản xuất và chế biến.</p>
-
-            <h4>Decilít (dl) là gì</h4>
-            <p>1 decilít = 0,1 lít = 100 ml.</p>
-            <p>Thường dùng trong công thức nấu ăn hoặc đo lường nhỏ.</p>
-
-            <h4>Centilít (cl) là gì</h4>
-            <p>1 centilít = 0,01 lít = 10 ml.</p>
-            <p>Phổ biến trong các lĩnh vực như pha chế đồ uống.</p>
-
-            <h4>Milimét khối (mm³) là gì?</h4>
-            <p>Là đơn vị rất nhỏ, tương đương với một khối lập phương cạnh 1 milimet.</p>
-            <p>1 mm³ = 0,000001 lít.</p>
-            <p>Dùng trong đo lường vi mô, ví dụ như thể tích của hạt bụi hoặc giọt chất lỏng.</p>
-
-            <h4>Microlít (µl) là gì?</h4>
-            <p>Là đơn vị cực nhỏ của thể tích, thường dùng trong các ngành khoa học và y tế.</p>
-            <p>1 µl = 0,001 ml = 0,000001 lít.</p>
-            <p>Ví dụ: lượng thuốc tiêm hoặc chất hóa học.</p>
+            <h4>Acre (a) là gì?</h4>
+            <p>Là đơn vị phổ biến ở các nước sử dụng hệ đo lường Anh, thường dùng đo đất nông nghiệp.</p>
+            <p>1 a ≈ 4046,86 m².</p>
         </div>
 
         <!-- Footer -->
@@ -211,13 +169,13 @@
 
         <!-- Conversion JS -->
         <script type="text/javascript">
-            const apiBaseUrl = "http://localhost:8080/api/conversion/volume"; // Địa chỉ API backend
+            const apiBaseUrl = "http://localhost:8080/api/conversion/area"; // Địa chỉ API backend
 
             // Hàm chuyển đổi thể tích
-            function convertVolume() {
-                const amount = document.getElementById("amount_volume").value;
-                const unitFrom = document.getElementById("from_volume").value;
-                const unitTo = document.getElementById("to_volume").value;
+            function convertArea() {
+                const amount = document.getElementById("amount_area").value;
+                const unitFrom = document.getElementById("from_area").value;
+                const unitTo = document.getElementById("to_area").value;
 
                 const requestBody = {
                     amount: parseFloat(amount),
@@ -234,7 +192,7 @@
                 })
                     //fetch(`${apiBaseUrl}?amount=${amount}&unitFrom=${unitFrom}&unitTo=${unitTo}`)
                     .then(response => response.json())
-                    .then(data => document.getElementById("result_volume").innerText = data.result)
+                    .then(data => document.getElementById("result_area").innerText = data.result)
                     .catch(error => console.error('Lỗi:', error));
             }
 

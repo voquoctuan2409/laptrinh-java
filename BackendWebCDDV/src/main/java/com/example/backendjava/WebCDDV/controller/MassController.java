@@ -1,5 +1,7 @@
 package com.example.backendjava.WebCDDV.controller;
 
+import com.example.backendjava.WebCDDV.model.ConversionRequest;
+import com.example.backendjava.WebCDDV.model.ConversionResponse;
 import com.example.backendjava.WebCDDV.service.MassService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +16,9 @@ public class MassController {
         this.massService = massService;
     }
 
-    @GetMapping("/mass")
-    public double convertMass(@RequestParam double amount, @RequestParam String unitFrom, @RequestParam String unitTo) {
-        return massService.convertMass(amount, unitFrom, unitTo);
+    @PostMapping("/mass")
+    public ConversionResponse convertMass(@RequestBody ConversionRequest request) {
+        double result = massService.convertMass(request.getAmount(), request.getUnitFrom(), request.getUnitTo());
+        return new ConversionResponse(result);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.backendjava.WebCDDV.controller;
 
+import com.example.backendjava.WebCDDV.model.ConversionRequest;
+import com.example.backendjava.WebCDDV.model.ConversionResponse;
 import com.example.backendjava.WebCDDV.service.TemperatureService;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,17 +12,16 @@ public class TemperatureController {
 
     private final TemperatureService temperatureService;
 
-    // Constructor Injection của TemperatureService
     public TemperatureController(TemperatureService temperatureService) {
         this.temperatureService = temperatureService;
     }
 
-    // API để chuyển đổi nhiệt độ
-    @GetMapping("/temperature")
-    public double convertTemperature(@RequestParam double amount,
-                                     @RequestParam String unitFrom,
-                                     @RequestParam String unitTo,
-                                     @RequestParam int decimals) {
-        return temperatureService.convertTemperature(amount, unitFrom, unitTo, decimals);
+    @PostMapping("/temperature")
+    public ConversionResponse convertTemperature(@RequestBody ConversionRequest request) {
+        double result = temperatureService.convertTemperature(request.getAmount(),
+                request.getUnitFrom(),
+                request.getUnitTo(),
+                request.getDecimals());
+        return new ConversionResponse(result);
     }
 }
